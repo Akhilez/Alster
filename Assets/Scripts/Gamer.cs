@@ -55,49 +55,27 @@ public class ArrowGamer : Gamer
 
     override public Vector3 captureDirection()
     {
-        List<DiscreteDirection> actions = new List<DiscreteDirection>();
+        var vector = new Vector3(0, 0, 0);
+
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            actions.Add(DiscreteDirection.up);
+            vector.x += -1;
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            actions.Add(DiscreteDirection.down);
+            vector.x += 1;
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            actions.Add(DiscreteDirection.left);
-            Debug.Log("PRESSED LEFT");
-        }
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            actions.Add(DiscreteDirection.right);
-            Debug.Log("PRESSED RIGHT");
-        }
-        return GetVectorFromDiscreteActions(actions);
-    }
-
-    private Vector3 GetVectorFromDiscreteActions(List<DiscreteDirection> actions)
-    {
-        var vector = new Vector3(0, 0, 0);
-
-        if (actions.Contains(DiscreteDirection.up)) {
-            vector.x += 1;
-        }
-        if (actions.Contains(DiscreteDirection.down))
-        {
-            vector.x -= 1;
-        }
-        if (actions.Contains(DiscreteDirection.left))
-        {
             vector.z -= 1;
         }
-        if (actions.Contains(DiscreteDirection.right))
+        if (Input.GetKey(KeyCode.RightArrow))
         {
             vector.z += 1;
         }
         return vector;
     }
+
 }
 
 public class WsadGamer : Gamer
@@ -109,19 +87,19 @@ public class WsadGamer : Gamer
     {
         var vector = new Vector3(0, 0, 0);
 
-        if (Input.GetKeyDown("w"))
+        if (Input.GetKey("w"))
+        {
+            vector.x += -1;
+        }
+        if (Input.GetKey("s"))
         {
             vector.x += 1;
         }
-        if (Input.GetKeyDown("s"))
-        {
-            vector.x -= 1;
-        }
-        if (Input.GetKeyDown("a"))
+        if (Input.GetKey("a"))
         {
             vector.z -= 1;
         }
-        if (Input.GetKeyDown("d"))
+        if (Input.GetKey("d"))
         {
             vector.z += 1;
         }
