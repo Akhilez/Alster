@@ -39,17 +39,44 @@ public class OnScreenJoyStickPlayer : Gamer
 public class AttractorPlayer : Gamer
 {
 
-    List<Gamer> allPlayers;
+    List<PlayerBallInterface> allPlayers;
+    Ball ball;
 
-    public AttractorPlayer(string name, List<Gamer> allPlayers) : base(name) { }
+    public AttractorPlayer(string name, List<PlayerBallInterface> allPBInterfaces, Ball ball) : base(name) {
+        this.allPlayers = allPBInterfaces;
+        this.ball = ball;
+    }
 
     override public Vector3 captureDirection()
     {
-        var vector = new Vector3(0, 0, 0);
 
         // TODO: Get vector to the nearest player position.
+        var distances = new List<float>();
 
-        return vector;
+        for (var i = 0; i < allPlayers.Count; i++)
+        {
+            distances.Add(Vector3.Distance(allPlayers[i].ball.GetPosition(), ball.GetPosition()));
+        }
+
+        int argMin2 = GetNonZeroMin(distances);
+        Vector3 direction = (allPlayers[argMin2].ball.GetPosition() - ball.GetPosition()).normalized;
+
+        return direction;
+    }
+
+    int GetNonZeroMin(List<float> distances)
+    {
+        float nonZeroMin = 99999999999999f;
+        int nonZeroMinIndex = -1;
+        for (int i=0; i< distances.Count; i++)
+        {
+            if (distances[i] != 0f && distances[i] < nonZeroMin)
+            {
+                nonZeroMin = distances[i];
+                nonZeroMinIndex = i;
+            }
+        }
+        return nonZeroMinIndex;
     }
 
 }

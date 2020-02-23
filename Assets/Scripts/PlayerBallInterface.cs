@@ -17,7 +17,6 @@ public class PlayerBallInterface
     public void applyInputForce()
     {
         Vector3 force = player.captureDirection();
-        Debug.Log("Finding input force" + force);
         ball.applyForce(force);
     }
 

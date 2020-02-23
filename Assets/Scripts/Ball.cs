@@ -22,6 +22,11 @@ public class Ball
 
     }
 
+    public Vector3 GetPosition ()
+    {
+        return _rigidBody.transform.position;
+    }
+
     public void applyForce(Vector3 force)
     {
         _forces.Add(force);

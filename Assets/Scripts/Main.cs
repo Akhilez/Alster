@@ -15,7 +15,10 @@ public class Main : MonoBehaviour
     {
         environment = new Environment();
 
-        pbInterfaces.Add(new PlayerBallInterface(new ArrowGamer("Player 1"), new Ball(balls[0])));
+        var ball2 = new Ball(balls[0]);
+
+        // pbInterfaces.Add(new PlayerBallInterface(new ArrowGamer("Player 1"), ball2));
+        pbInterfaces.Add(new PlayerBallInterface(new AttractorPlayer("Player 1", pbInterfaces, ball2), ball2));
         // pbInterfaces.Add(new PlayerBallInterface(new WsadGamer("Player 2"), new Ball(balls[1])));
         pbInterfaces.Add(new PlayerBallInterface(new OnScreenJoyStickPlayer("Player 2", joystick), new Ball(balls[1])));
 
