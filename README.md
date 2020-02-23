@@ -19,16 +19,10 @@ Flow:
    - Replay button
 
 TODO:
-  - Get AR stuff working.
-  - Cylinder collision box.
-  - Add timer before start.
+  - Quit Game button
+  - Beautify game
+  - Go back to menu screen on back button
   - Create AI player (Finally)
-  - Create Auto-Spawn on losing.
-  - Create Timer
-  - Add score functionality
-  - Add table edge detection
-  - Make real table as platform.
-  - Create fake table if real table is infinitely large.
   - Save scores
   - Add firebase integration
   - Maintain scores in firebase

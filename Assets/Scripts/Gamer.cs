@@ -57,13 +57,13 @@ public class AttractorPlayer : Gamer
     {
         var probability = _random.NextDouble();
 
-        if (probability > 0.8)
+        if (probability > 0.7)
         {
             return new Vector3(_random.Next(0, 5), _random.Next(0, 5), _random.Next(0, 5)).normalized;
         }
 
         Vector3 direction = AttractorPlayer.GetMinDistanceDirection(ball, allPlayers);
-        direction -= ball.GetVelocity();
+        // direction += ball.GetVelocity();
 
         return direction.normalized;
 

@@ -12,7 +12,7 @@ public class Ball
 
     private List<Vector3> _forces = new List<Vector3>();
 
-    private Rigidbody _rigidBody;
+    public Rigidbody _rigidBody;
 
     public Ball(GameObject ballObject)
     {
@@ -51,7 +51,7 @@ public class Ball
         Vector3 totalForce = new Vector3(0, 0, 0);
         _forces.ForEach(force => totalForce += force);
 
-        _rigidBody.AddForce(totalForce * 0.005f);
+        _rigidBody.AddForce(totalForce);
 
         _forces.Clear();
 
