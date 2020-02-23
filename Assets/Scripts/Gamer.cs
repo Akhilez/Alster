@@ -17,13 +17,19 @@ public abstract class Gamer
 public class OnScreenJoyStickPlayer : Gamer
 {
 
-    public OnScreenJoyStickPlayer(string name) : base(name) { }
+    public Joystick joystick;
+
+    public OnScreenJoyStickPlayer(string name, Joystick joystick) : base(name) {
+        this.joystick = joystick;
+    }
 
     override public Vector3 captureDirection()
     {
-        var vector = new Vector3(0, 0, 0);
 
-        // TODO: Get vector from UI element.
+        Vector3 vector = joystick.Direction.normalized;
+        var x = -vector.y;
+        var z = vector.x;
+        vector = new Vector3(x, 0, z);
 
         return vector;
     }
