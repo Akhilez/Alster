@@ -150,7 +150,7 @@ public class Main : MonoBehaviour
             FinishMatch();
         } else
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(0);
         }
     }
 }

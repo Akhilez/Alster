@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 432400e1ae45ce04888ee00a228e57cd
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Black Ryder Demo
+  fontNames:
+  - Black Ryder Demo
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 32047e0964e4d8746adb09beaa6c0d6a, type: 3}
+  - {fileID: 12800000, guid: 2ef9411e9bdd15b4c8e86fe81826923e, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
