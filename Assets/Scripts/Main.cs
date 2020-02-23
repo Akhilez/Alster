@@ -8,7 +8,7 @@ public class Main : MonoBehaviour
     public List<GameObject> balls;
     public Joystick joystick;
 
-    public List<PlayerBallInterface> pbInterfaces = new List<PlayerBallInterface>();
+    public List<Gamer> players = new List<Gamer>();
     public Environment environment;
 
     void Start()
@@ -16,11 +16,10 @@ public class Main : MonoBehaviour
         environment = new Environment();
 
         var ball2 = new Ball(balls[0]);
+        var ball1 = new Ball(balls[1]);
 
-        // pbInterfaces.Add(new PlayerBallInterface(new ArrowGamer("Player 1"), ball2));
-        pbInterfaces.Add(new PlayerBallInterface(new NoisyAttractorPlayer("Player 1", pbInterfaces, ball2), ball2));
-        // pbInterfaces.Add(new PlayerBallInterface(new WsadGamer("Player 2"), new Ball(balls[1])));
-        pbInterfaces.Add(new PlayerBallInterface(new OnScreenJoyStickPlayer("Player 2", joystick), new Ball(balls[1])));
+        players.Add(new AttractorPlayer("Player 1", ball1, players));
+        players.Add(new OnScreenJoyStickPlayer("Player 2", ball2, joystick));
 
     }
 
@@ -28,16 +27,16 @@ public class Main : MonoBehaviour
     void Update()
     {
 
-        for (int i = 0; i < this.pbInterfaces.Count; i++)
+        for (int i = 0; i < this.players.Count; i++)
         {
-            pbInterfaces[i].applyInputForce();
+            players[i].applyForce();
         }
 
-        environment.applyForces(pbInterfaces);
+        environment.applyForces(players);
 
-        for (int i = 0; i < this.pbInterfaces.Count; i ++)
+        for (int i = 0; i < this.players.Count; i ++)
         {
-            pbInterfaces[i].ball.Update();
+            players[i].ball.Update();
         }
 
         

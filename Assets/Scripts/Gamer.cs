@@ -6,12 +6,19 @@ using UnityEngine;
 public abstract class Gamer
 {
     public string name;
-    public Gamer(string name)
+    public Ball ball;
+
+    public Gamer(string name, Ball ball)
     {
         this.name = name;
+        this.ball = ball;
     }
 
     public abstract Vector3 captureDirection();
+
+    public void applyForce() {
+        ball.applyForce(captureDirection());
+    }
 }
 
 public class OnScreenJoyStickPlayer : Gamer
@@ -19,7 +26,7 @@ public class OnScreenJoyStickPlayer : Gamer
 
     public Joystick joystick;
 
-    public OnScreenJoyStickPlayer(string name, Joystick joystick) : base(name) {
+    public OnScreenJoyStickPlayer(string name, Ball ball, Joystick joystick) : base(name, ball) {
         this.joystick = joystick;
     }
 
@@ -39,20 +46,30 @@ public class OnScreenJoyStickPlayer : Gamer
 public class AttractorPlayer : Gamer
 {
 
-    List<PlayerBallInterface> allPlayers;
-    Ball ball;
+    List<Gamer> allPlayers;
+    private System.Random _random = new System.Random();
 
-    public AttractorPlayer(string name, List<PlayerBallInterface> allPBInterfaces, Ball ball) : base(name) {
-        this.allPlayers = allPBInterfaces;
-        this.ball = ball;
+    public AttractorPlayer(string name, Ball ball, List<Gamer> allPlayers) : base(name, ball) {
+        this.allPlayers = allPlayers;
     }
 
     override public Vector3 captureDirection()
     {
-        return GetMinDistanceDirection(ball, allPlayers);
+        var probability = _random.NextDouble();
+
+        if (probability > 0.8)
+        {
+            return new Vector3(_random.Next(0, 5), _random.Next(0, 5), _random.Next(0, 5)).normalized;
+        }
+
+        Vector3 direction = AttractorPlayer.GetMinDistanceDirection(ball, allPlayers);
+        direction -= ball.GetVelocity();
+
+        return direction.normalized;
+
     }
 
-    public static Vector3 GetMinDistanceDirection(Ball ball, List<PlayerBallInterface> allPlayers)
+    public static Vector3 GetMinDistanceDirection(Ball ball, List<Gamer> allPlayers)
     {
         var distances = new List<float>();
 
@@ -62,7 +79,7 @@ public class AttractorPlayer : Gamer
         }
 
         int argMin2 = AttractorPlayer.GetNonZeroMin(distances);
-        Vector3 direction = (allPlayers[argMin2].ball.GetPosition() - ball.GetPosition()).normalized;
+        Vector3 direction = (allPlayers[argMin2].ball.GetPosition() - ball.GetPosition());
 
         return direction;
     }
@@ -84,37 +101,10 @@ public class AttractorPlayer : Gamer
 
 }
 
-public class NoisyAttractorPlayer : Gamer
-{
-
-    List<PlayerBallInterface> allPlayers;
-    Ball ball;
-    private System.Random _random = new System.Random();
-
-    public NoisyAttractorPlayer(string name, List<PlayerBallInterface> allPBInterfaces, Ball ball) : base(name)
-    {
-        this.allPlayers = allPBInterfaces;
-        this.ball = ball;
-    }
-
-    override public Vector3 captureDirection()
-    {
-        var probability = _random.NextDouble();
-        
-        if (probability > 0.8)
-        {
-            return new Vector3(_random.Next(0, 5), _random.Next(0, 5), _random.Next(0, 5)).normalized;
-        }
-
-        return AttractorPlayer.GetMinDistanceDirection(ball, allPlayers);
-    }
-
-}
-
 public class ArrowGamer : Gamer
 {
 
-    public ArrowGamer(string name) : base(name) { }
+    public ArrowGamer(string name, Ball ball) : base(name, ball) { }
 
     override public Vector3 captureDirection()
     {
@@ -144,7 +134,7 @@ public class ArrowGamer : Gamer
 public class WsadGamer : Gamer
 {
 
-    public WsadGamer(string name) : base(name) { }
+    public WsadGamer(string name, Ball ball) : base(name, ball) { }
 
     override public Vector3 captureDirection()
     {

@@ -27,6 +27,11 @@ public class Ball
         return _rigidBody.transform.position;
     }
 
+    public Vector3 GetVelocity()
+    {
+        return _rigidBody.velocity;
+    }
+
     public void applyForce(Vector3 force)
     {
         _forces.Add(force);

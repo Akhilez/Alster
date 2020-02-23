@@ -14,11 +14,11 @@ public class Environment
         forces.Add(gravity);
     }
 
-    public void applyForces (List<PlayerBallInterface> pbInterfaces)
+    public void applyForces (List<Gamer> players)
     {
-        foreach (var pbInterface in pbInterfaces)
+        foreach (var player in players)
         {
-            forces.ForEach(force => pbInterface.ball.applyForce(force));
+            forces.ForEach(force => player.ball.applyForce(force));
         }
  
     }
