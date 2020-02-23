@@ -49,8 +49,11 @@ public class AttractorPlayer : Gamer
 
     override public Vector3 captureDirection()
     {
+        return GetMinDistanceDirection(ball, allPlayers);
+    }
 
-        // TODO: Get vector to the nearest player position.
+    public static Vector3 GetMinDistanceDirection(Ball ball, List<PlayerBallInterface> allPlayers)
+    {
         var distances = new List<float>();
 
         for (var i = 0; i < allPlayers.Count; i++)
@@ -58,13 +61,13 @@ public class AttractorPlayer : Gamer
             distances.Add(Vector3.Distance(allPlayers[i].ball.GetPosition(), ball.GetPosition()));
         }
 
-        int argMin2 = GetNonZeroMin(distances);
+        int argMin2 = AttractorPlayer.GetNonZeroMin(distances);
         Vector3 direction = (allPlayers[argMin2].ball.GetPosition() - ball.GetPosition()).normalized;
 
         return direction;
     }
 
-    int GetNonZeroMin(List<float> distances)
+    static int GetNonZeroMin(List<float> distances)
     {
         float nonZeroMin = 99999999999999f;
         int nonZeroMinIndex = -1;
@@ -77,6 +80,33 @@ public class AttractorPlayer : Gamer
             }
         }
         return nonZeroMinIndex;
+    }
+
+}
+
+public class NoisyAttractorPlayer : Gamer
+{
+
+    List<PlayerBallInterface> allPlayers;
+    Ball ball;
+    private System.Random _random = new System.Random();
+
+    public NoisyAttractorPlayer(string name, List<PlayerBallInterface> allPBInterfaces, Ball ball) : base(name)
+    {
+        this.allPlayers = allPBInterfaces;
+        this.ball = ball;
+    }
+
+    override public Vector3 captureDirection()
+    {
+        var probability = _random.NextDouble();
+        
+        if (probability > 0.8)
+        {
+            return new Vector3(_random.Next(0, 5), _random.Next(0, 5), _random.Next(0, 5)).normalized;
+        }
+
+        return AttractorPlayer.GetMinDistanceDirection(ball, allPlayers);
     }
 
 }
