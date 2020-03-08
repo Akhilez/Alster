@@ -45,6 +45,11 @@ public class Ball
         }
     }
 
+    public void multiplyMass(float multiplier)
+    {
+        this._rigidBody.mass *= multiplier;
+    }
+
     public void Update()
     {
 

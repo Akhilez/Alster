@@ -63,7 +63,7 @@ public class AttractorPlayer : Gamer
         }
 
         Vector3 direction = AttractorPlayer.GetMinDistanceDirection(ball, allPlayers);
-        // direction += ball.GetVelocity();
+        direction += ball.GetVelocity() * 0.2f;
 
         return direction.normalized;
 

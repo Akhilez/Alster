@@ -51,6 +51,8 @@ public class Main : MonoBehaviour
             var ball2 = new Ball(ballObject1);
             var ball1 = new Ball(ballObject2);
 
+            ball2.multiplyMass(1.2f);
+
             players.Add(new AttractorPlayer("Player 1", ball1, players));
             players.Add(new OnScreenJoyStickPlayer("Player 2", ball2, joystick));
 
@@ -134,7 +136,7 @@ public class Main : MonoBehaviour
         {
             _aRPlaneManager.enabled = false;
 
-            plane.transform.rotation = new Quaternion(0f, plane.transform.rotation.y, 0f, 0f);
+            plane.transform.rotation = new Quaternion(0.0f, plane.transform.rotation.y, 0f, plane.transform.rotation.w);
             _selectedARPlane = plane;
 
             Destroy(planeSelectorButton);
